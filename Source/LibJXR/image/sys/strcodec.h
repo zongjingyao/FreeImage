@@ -28,6 +28,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdlib.h>
 #if defined(__MINGW32__)
 #include <stdint.h>
 #endif
@@ -116,6 +117,25 @@ CT_ASSERT(sizeof(INTPTR_T) == sizeof(void*), strcodec2);
 //================================================================
 
 #define TraceResult(a)
+
+#if (defined(WIN32) && !defined(UNDER_CE) && (!defined(__MINGW32__) || defined(__MINGW64_TOOLCHAIN__))) || (defined(UNDER_CE) && defined(_ARM_))
+// WinCE ARM and Desktop x86
+#else
+// other platform
+#ifdef _BIG__ENDIAN_
+#define _byteswap_ulong(x)  (x)
+#else // _BIG__ENDIAN_
+static inline U32 _byteswap_ulong(U32 bits)
+{
+    U32 r = (bits & 0xffu) << 24;
+    r |= (bits << 8) & 0xff0000u;
+    r |= ((bits >> 8) & 0xff00u);
+    r |= ((bits >> 24) & 0xffu);
+
+    return r;
+}
+#endif // _BIG__ENDIAN_
+#endif
 
 //================================================================
 typedef enum tagPacketType
