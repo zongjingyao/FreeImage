@@ -7,3 +7,10 @@ Dist/
 **/x64/Release/
 **/x64/Debug/
 **/obj/Debug/
+*.o-x86_64
+*.o-x86_64.tmp
+*.a-x86_64
+*.o-i386
+*.o-i386.tmp
+*.a-i386
+.vscode/
