@@ -1,18 +1,18 @@
 # Configuration for iPhone OS, making static libs
-# this will generate both iPhone (arm) and iPhoneSimulator (i386) libs
+# this will generate both iPhone (arm) and iPhoneSimulator (x86_64) libs
 
 include Makefile.srcs
 
-CFLAGS = -std=c99 -g -O2 -Wall -Wmissing-prototypes -ffast-math -fno-strict-aliasing -D__ANSI__ -emit-llvm -Wno-c++11-narrowing -Wno-implicit-function-declaration
-CXXFLAGS = -std=gnu++14 -stdlib=libc++ -D__ANSI__ -emit-llvm -Wno-c++11-narrowing -Wno-implicit-function-declaration -fvisibility-inlines-hidden
+CFLAGS = -std=c99 -g -O2 -Wall -Wmissing-prototypes -ffast-math -fno-strict-aliasing -D__ANSI__ -emit-llvm -Wno-c++11-narrowing -Wno-implicit-function-declaration -DDISABLE_PERF_MEASUREMENT -DPNG_ARM_NEON_OPT=0
+CXXFLAGS = -std=gnu++14 -stdlib=libc++ -D__ANSI__ -emit-llvm -Wno-c++11-narrowing -Wno-implicit-function-declaration -fvisibility-inlines-hidden -DDISABLE_PERF_MEASUREMENT -DPNG_ARM_NEON_OPT=0
 
-IPHONEOS_DEPLOYMENT_TARGET = 10.0
+IPHONEOS_DEPLOYMENT_TARGET = 11.0
 MACOSX_DEPLOYMENT_TARGET = 10.15
 
 PLATFORM_SIM = iPhoneSimulator
 PLATFORM_PHONE = iPhoneOS
 
-ARCH_SIM = i386
+ARCH_SIM = x86_64
 ARCH_PHONE = arm64
 
 PLATFORM_DEVELOPER_BIN_DIR = $(shell xcode-select -print-path)/Toolchains/XcodeDefault.xctoolchain/usr/bin
